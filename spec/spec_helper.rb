@@ -1,5 +1,15 @@
 # spec/spec_helper.rb
 
+require 'active_support'
+require 'active_model'
+require 'active_model/validations'
+require 'byebug'
+require 'rspec/sleeping_king_studios/all'
+
+# Requires supporting ruby files with custom matchers and macros, etc, in
+# spec/support/ and its subdirectories.
+Dir[File.join File.expand_path('.'), 'spec', 'support', '**', '*.rb'].each { |f| require f }
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.disable_monkey_patching!
