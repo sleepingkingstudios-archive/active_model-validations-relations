@@ -1,1 +1,1 @@
-# ActiveModel::Validations::Relations
+# ActiveModel::Validations::Relations [![Build Status](https://travis-ci.org/sleepingkingstudios/active_model-validations-relations.svg?branch=master)](https://travis-ci.org/sleepingkingstudios/active_model-validations-relations)
