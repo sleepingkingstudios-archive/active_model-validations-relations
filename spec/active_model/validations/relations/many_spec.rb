@@ -1,5 +1,7 @@
 # spec/active_model/validations/relations/many_spec.rb
 
+require 'spec_helper'
+
 require 'active_model/validations/relations/many'
 
 RSpec.describe ActiveModel::Validations::Relations::Many do

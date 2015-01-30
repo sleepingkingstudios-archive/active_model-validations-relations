@@ -1,5 +1,7 @@
 # spec/active_model/validations/relations_spec.rb
 
+require 'spec_helper'
+
 require 'active_model/validations/relations'
 require 'active_model/validations/relations/serializers/underscore_serializer'
 

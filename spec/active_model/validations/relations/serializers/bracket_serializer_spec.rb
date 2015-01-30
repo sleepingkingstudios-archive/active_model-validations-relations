@@ -1,5 +1,7 @@
 # spec/active_model/validations/relations/serializers/bracket_serializer_spec.rb
 
+require 'spec_helper'
+
 require 'active_model/validations/relations/serializers/bracket_serializer'
 
 RSpec.describe ActiveModel::Validations::Relations::Serializers::BracketSerializer do

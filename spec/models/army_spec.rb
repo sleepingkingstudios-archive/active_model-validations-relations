@@ -1,5 +1,7 @@
 # spec/models/army_spec.rb
 
+require 'spec_helper'
+
 require 'support/models/army'
 
 RSpec.describe Army do
