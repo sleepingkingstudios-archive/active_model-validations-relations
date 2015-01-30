@@ -1,7 +1,9 @@
 # lib/active_model/validations/relations.rb
 
 require 'active_support'
+require 'active_support/core_ext'
 require 'active_model'
+require 'active_model/validations'
 
 module ActiveModel::Validations
   module Relations
@@ -36,6 +38,12 @@ module ActiveModel::Validations
           define_method :relation_name do
             relation_name
           end # method relation_name
+
+          if options[:serializer].respond_to?(:serialize)
+            define_method :serializer do
+              options[:serializer]
+            end # method serializer
+          end # if
         end # class
 
         base.send :validates_with, validator_class

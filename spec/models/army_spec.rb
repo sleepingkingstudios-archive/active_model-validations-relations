@@ -1,5 +1,7 @@
 # spec/models/army_spec.rb
 
+require 'support/models/army'
+
 RSpec.describe Army do
   shared_examples 'should merge the relation errors into errors' do
     it 'should merge the relation errors into errors' do
