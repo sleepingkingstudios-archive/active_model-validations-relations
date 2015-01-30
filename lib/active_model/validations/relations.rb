@@ -2,6 +2,7 @@
 
 require 'active_model/validations'
 require 'active_model/validations/relations/many'
+require 'active_model/validations/relations/one'
 
 module ActiveModel::Validations
   module Relations

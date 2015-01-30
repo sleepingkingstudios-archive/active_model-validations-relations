@@ -1,15 +1,15 @@
-# spec/active_model/validations/relations/many_spec.rb
+# spec/active_model/validations/relations/one_spec.rb
 
-require 'active_model/validations/relations/many'
+require 'active_model/validations/relations/one'
 
-RSpec.describe ActiveModel::Validations::Relations::Many do
+RSpec.describe ActiveModel::Validations::Relations::One do
   let(:instance) { described_class.new }
 
   describe '#validate' do
     it { expect(instance).to respond_to(:validate).with(1).argument }
 
     describe 'with a record' do
-      let(:record) { Node.new }
+      let(:record) { Axiom.new }
 
       describe 'with no relations' do
         it 'should not change the errors' do
@@ -17,18 +17,18 @@ RSpec.describe ActiveModel::Validations::Relations::Many do
         end # it
       end # describe
 
-      describe 'with valid relations' do
-        let(:relations) { %w(red green blue).map { |color| Edge.new(color) } }
-        let(:record)    { super().tap { |obj| obj.relations = relations } }
+      describe 'with a valid relation' do
+        let(:relation) { Proof.new(false) }
+        let(:record)   { super().tap { |obj| obj.relation = relation } }
 
         it 'should not change the errors' do
           expect { instance.validate record }.not_to change(record.errors, :messages)
         end # it
       end # describe
 
-      describe 'with invalid relations' do
-        let(:relations) { Array.new(3).map { Edge.new } }
-        let(:record)    { super().tap { |obj| obj.relations = relations } }
+      describe 'with an invalid relation' do
+        let(:relation) { Proof.new(:maybe) }
+        let(:record)   { super().tap { |obj| obj.relation = relation } }
 
         it 'should merge the relation errors into errors' do
           instance.validate record
@@ -36,11 +36,8 @@ RSpec.describe ActiveModel::Validations::Relations::Many do
           errors = record.errors
           expect(errors).not_to be_blank
 
-          [*0...relations.count].each do |index|
-            key = :"relations[#{index}][color]"
-
-            expect(errors[key]).to contain_exactly "can't be blank"
-          end # each
+          key = :"relation[correct]"
+          expect(errors[key]).to contain_exactly "is not included in the list"
         end # it
       end # describe
     end # describe

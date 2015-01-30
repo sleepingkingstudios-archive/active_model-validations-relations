@@ -6,7 +6,18 @@ RSpec.describe ActiveModel::Validations::Relations do
   describe '::validates_relation' do
     it { expect(described_class).to respond_to(:validates_relation).with(1..2).arguments }
 
-    pending 'with :inventor'
+    describe 'with :inventor' do
+      it 'should set a validation on the base class' do
+        expect(described_class).to receive(:validates_with) do |validator_class|
+          expect(validator_class).to be < ActiveModel::Validations::Relations::One
+
+          validator = validator_class.new
+          expect(validator.send :relation_name).to be == :inventor
+        end # expect
+
+        described_class.validates_relation :inventor
+      end # it
+    end # describe
 
     describe 'with :widgets' do
       it 'should set a validation on the base class' do
@@ -21,7 +32,18 @@ RSpec.describe ActiveModel::Validations::Relations do
       end # it
     end # describe
 
-    pending 'with :sheep, :arity => :one'
+    describe 'with :sheep, :arity => :one' do
+      it 'should set a validation on the base class' do
+        expect(described_class).to receive(:validates_with) do |validator_class|
+          expect(validator_class).to be < ActiveModel::Validations::Relations::One
+
+          validator = validator_class.new
+          expect(validator.send :relation_name).to be == :sheep
+        end # expect
+
+        described_class.validates_relation :sheep
+      end # it
+    end # describe
 
     describe 'with :sheep, :arity => :many' do
       it 'should set a validation on the base class' do

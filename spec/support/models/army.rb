@@ -6,11 +6,14 @@ class Army
   include ActiveModel::Validations
   include ActiveModel::Validations::Relations
 
+  attr_accessor :general
+
   def soldiers
     @soldiers ||= []
   end # method soldiers
 
   attr_writer :soldiers
 
+  validates_relation :general
   validates_relation :soldiers
 end # class
