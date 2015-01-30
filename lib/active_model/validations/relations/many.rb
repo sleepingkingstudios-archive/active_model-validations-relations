@@ -1,15 +1,12 @@
 # lib/active_model/validations/relations/many.rb
 
-require 'active_model/validations/relations'
-require 'active_model/validator'
+require 'active_model/validations/relations/base'
 
 module ActiveModel::Validations::Relations
-  class Many < ActiveModel::Validator
+  class Many < ActiveModel::Validations::Relations::Base
     def validate record
-      @record = record
-
-      relations.each.with_index do |relation, index|
-        next if relation.valid?
+      record.send(relation_name).each.with_index do |relation, index|
+        next if relation.errors.blank? && relation.valid?
 
         relation.errors.each do |attribute, message|
           record.errors.add error_key(relation, index, attribute), message
@@ -20,12 +17,8 @@ module ActiveModel::Validations::Relations
     private
 
     def error_key relation, index, attribute
-      :"#{relation_name}[#{index}][#{attribute}]"
+      serializer.serialize relation_name, index, *serializer.deserialize(attribute)
     end # method relation_key
-
-    def relations
-      @record.send(relation_name)
-    end # method relations
 
     def relation_name
       :relations

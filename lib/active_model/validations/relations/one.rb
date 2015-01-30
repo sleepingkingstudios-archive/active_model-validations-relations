@@ -1,14 +1,13 @@
 # lib/active_model/validations/relations/one.rb
 
-require 'active_model/validations/relations'
-require 'active_model/validator'
+require 'active_model/validations/relations/base'
 
 module ActiveModel::Validations::Relations
-  class One < ActiveModel::Validator
+  class One < ActiveModel::Validations::Relations::Base
     def validate record
-      @record = record
+      relation = record.send(relation_name)
 
-      return if relation.nil? || relation.valid?
+      return if relation.blank? || (relation.errors.blank? && relation.valid?)
 
       relation.errors.each do |attribute, message|
         record.errors.add error_key(relation, attribute), message
@@ -18,12 +17,8 @@ module ActiveModel::Validations::Relations
     private
 
     def error_key relation, attribute
-      :"#{relation_name}[#{attribute}]"
+      serializer.serialize relation_name, *serializer.deserialize(attribute)
     end # method relation_key
-
-    def relation
-      @record.send(relation_name)
-    end # method relation
 
     def relation_name
       :relation
