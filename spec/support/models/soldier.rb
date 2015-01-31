@@ -1,5 +1,7 @@
 # spec/support/models/soldier.rb
 
+require 'active_model/validations/relations'
+
 class Soldier < Struct.new(:rank)
   include ActiveModel::Validations
   include ActiveModel::Validations::Relations
@@ -13,5 +15,5 @@ class Soldier < Struct.new(:rank)
   attr_writer :rations
 
   validates :rank, :presence => true
-  validates_relation :rations
+  validates_related_records :rations
 end # class

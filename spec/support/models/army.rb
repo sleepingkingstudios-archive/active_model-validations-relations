@@ -1,6 +1,6 @@
 # spec/support/models/army.rb
 
-require 'active_model/validations/relations/many'
+require 'active_model/validations/relations'
 
 class Army
   include ActiveModel::Validations
@@ -14,6 +14,6 @@ class Army
 
   attr_writer :soldiers
 
-  validates_relation :general
-  validates_relation :soldiers
+  validates_related_records :general
+  validates_related_records :soldiers
 end # class

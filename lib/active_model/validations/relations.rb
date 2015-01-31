@@ -10,9 +10,10 @@ module ActiveModel::Validations
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def validates_relation relation_name, options = {}
+      def validates_related_records relation_name, options = {}
         ActiveModel::Validations::Relations.apply self, relation_name, options
-      end # class method validates_relation
+      end # class method validates_related_records
+      alias_method :validates_related_documents, :validates_related_records
     end # module
 
     class << self
