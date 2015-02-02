@@ -34,6 +34,7 @@ module ActiveModel
         end # class method to_version
       end # module
 
+      # The current version of the gem in rubygems-compatible format.
       VERSION = Version.to_gem_version
     end # module
   end # module

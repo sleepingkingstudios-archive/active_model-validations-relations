@@ -3,7 +3,13 @@
 require 'active_model/validations/relations/base'
 
 module ActiveModel::Validations::Relations
+  # The base validator for validating a one-to-many relation.
   class Many < ActiveModel::Validations::Relations::Base
+    # Checks the validity of the related models and merges any errors into the
+    # primary model's #errors object.
+    #
+    # @param record [Object] An object extending ActiveModel::Validations and
+    #   with the specified relation.
     def validate record
       record.send(relation_name).each.with_index do |relation, index|
         next if relation.errors.blank? && relation.valid?
